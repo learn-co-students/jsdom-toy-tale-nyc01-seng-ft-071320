@@ -30,6 +30,13 @@ body {
   display: inline-grid;
   margin: 1rem 2rem;
   box-shadow: 3px 4px #e04b52
+  overflow: hidden;
+
+}
+
+img {
+  max-height: 15rem;
+  /* max-width: inherit; */
 }
 
 .toy-avatar {
