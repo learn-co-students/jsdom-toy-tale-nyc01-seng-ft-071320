@@ -28,12 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2>${toyObj.name}</h2>
       <img src=${toyObj.image} class="toy-avatar" />
       <p>${toyObj.likes} Likes</p>
-      <button class="like-btn">Like <3</button>
+      <button data-id="${toyObj.id}" class="like-btn">Like <3</button>
     `
     cardContainer.append(toyDiv)
   }
-
-  getToys()
 
   // Creates a new toy, updates in database and posts to webpage
   const fetchPost = (name, imgUrl) => {
@@ -81,25 +79,53 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Function to update toy likes
-  let likeButtons = document.getElementsByClassName('like-btn')
-  for (const button of likeButtons) {
-    button.addEventListener("click", function(e){
-      console.log("HELLO")
-
-
-      // let toyLikes = toyObj.children[2].innerText.split(" ")
-
-
-
-
-
-
-
-
-
+  let likeListener = () => {
+    document.addEventListener("click", function(e){
+      if (e.target.matches(".like-btn")){
+        let button = e.target
+        let id = button.dataset.id
+        let pTag = button.previousElementSibling
+        let toyLikes = parseInt(pTag.innerText.split(" ")[0])
+        let newToyLikes = toyLikes + 1
+        patchPost(newToyLikes, id, pTag)
+      }
     })
   }
 
+
+  const patchPost = (likes, id, pTag) => {
+    const newToyObj = fetch("http://localhost:3000/toys/" + id, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+
+      body: JSON.stringify
+      ({
+          likes: likes
+      })
+    })
+    .then(response => response.json())
+    .then(toy => {
+      const toyButton = document.querySelector(`[data-id="${toy.id}"]`)
+      pTag.textContent = `${toy.likes} Likes`
+
+    })
+    console.log(newToyObj)
+  }
+
+  // fetch(baseUrl + id, options)
+  // .then(response => response.json())
+  // .then(toy => {
+  //   const button = document.querySelector(`[data-id="${toy.id}"]`)
+  //   console.log(button)
+  //   const pTag = button.previousElementSibling
+  //   pTag.textContent = `${toy.likes} Likes`
+
+
+
+// Patch to update likes
 
   // PATCH http://localhost:3000/toys/:id
   // headers: 
@@ -115,6 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Invoke methods and functions and run program sequence
   
-
-  
+  likeListener()
+  getToys()  
 });
