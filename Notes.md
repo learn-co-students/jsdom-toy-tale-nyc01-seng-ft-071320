@@ -38,11 +38,20 @@ call our render function on that data to display on page
 
 Deliverable 3: 
 
-locate button being clicked 
 
-add event listener to this button 
 
-send patch request 
+ 1. collect all elements with class="like-btn" 
+
+ 2. use event delegation to add listen to each of these buttons
+
+3. Send patch request when clicked and render updated info
+
+to get to the p element somehow
+
+  somevar = card.children[2].innerText.split(" ") (be equal to an array with two onjects)
+  secondvar = parseIt(somevar[0]) + 1
+  patch function 
+  call on render function 
 
 
 

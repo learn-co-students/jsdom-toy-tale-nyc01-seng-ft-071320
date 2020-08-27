@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const toyFormContainer = document.querySelector(".container");
   const cardContainer = document.getElementById("toy-collection")
 
+// Loads all the toys in the database
+
+
   let getToys = () => {
     fetch("http://localhost:3000/toys")
       .then(resp => resp.json())
@@ -30,8 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
     cardContainer.append(toyDiv)
   }
 
+  getToys()
 
-  
+  // Creates a new toy, updates in database and posts to webpage
   const fetchPost = (name, imgUrl) => {
     const newToyObj = fetch("http://localhost:3000/toys", {
       method: 'POST',
@@ -50,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(newToyObj)
   }
 
+  // Form to submit new toy info
+
   toyFormContainer.addEventListener("submit", e => {
     if (e.target.matches('.add-toy-form')){
       e.preventDefault()
@@ -59,10 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const name = input.name.value
       const imgUrl = input.image.value
       fetchPost(name, imgUrl)
+      getToys()
     }  
   });
 
-
+// EventListener to hide and display new toy form
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
     addToy = !addToy;
@@ -73,7 +80,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Function to update toy likes
+  let likeButtons = document.getElementsByClassName('like-btn')
+  for (const button of likeButtons) {
+    button.addEventListener("click", function(e){
+      console.log("HELLO")
+
+
+      // let toyLikes = toyObj.children[2].innerText.split(" ")
+
+
+
+
+
+
+
+
+
+    })
+  }
+
+
+  // PATCH http://localhost:3000/toys/:id
+  // headers: 
+  // {
+  //   "Content-Type": "application/json",
+  //   Accept: "application/json"
+  // }
+   
+  // body: JSON.stringify({
+  //   "likes": <new number>
+  // })
+
+
+  // Invoke methods and functions and run program sequence
   
 
-  getToys()
+  
 });
