@@ -36,4 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     }
   });
+
+  const toyForm = document.querySelector('.add-toy-form')
+  toyForm.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log("good")
+  })
+
 });
