@@ -10,7 +10,7 @@
       "id": 2,
       "name": "Buzz Lightyear",
       "image": "http://www.pngmart.com/files/6/Buzz-Lightyear-PNG-Transparent-Picture.png",
-      "likes": 8
+      "likes": "34"
     },
     {
       "id": 3,
@@ -47,6 +47,24 @@
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": -2
+    },
+    {
+      "name": "Mr.Bear",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/814F0N9%2ByoL._AC_SL1500_.jpg",
+      "likes": "1",
+      "id": 10
+    },
+    {
+      "name": "Mr.Dolphin",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/71kuCOaUylL._AC_SX425_.jpg",
+      "likes": "4",
+      "id": 12
+    },
+    {
+      "name": "Mrs.Dophin",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/71kuCOaUylL._AC_SX425_.jpg",
+      "likes": "6",
+      "id": 13
     }
   ]
 }
