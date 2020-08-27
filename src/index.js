@@ -23,9 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     toyCollection.append(toyDiv)
   }
 
-  fetch('http://localhost:3000/toys')
-    .then(toy => toy.json())
-    .then(toys => renderToys(toys))
+  const sendData = (obj) => {
+    fetch('http://localhost:3000/toys')
+      .then(toy => toy.json())
+      .then(toys => renderToys(toys))
+  }
 
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
@@ -38,9 +40,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const toyForm = document.querySelector('.add-toy-form')
+  // querySelector('input[name="pwd"]')
   toyForm.addEventListener('submit', e => {
     e.preventDefault()
-    console.log("good")
+    fetch('http://localhost:3000/toys', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: toyForm.name.value,
+        image: toyForm.image.value,
+        likes: 0
+      })
+    })
+    .then(response => response.json())
+    // .then(data => sendData(data))
+    
+    toyForm.reset()
+    sendData()
+    location.reload()
   })
-
+  sendData()
 });
