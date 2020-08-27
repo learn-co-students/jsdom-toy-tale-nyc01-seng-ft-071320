@@ -18,10 +18,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else if(button.matches(".submit")){
         e.preventDefault()
-        const nameField = fields[1].value
-        const imgField = fields[3].value
-        createToy(nameField, imgField)
+
+        let toy = {
+          "id": document.querySelectorAll('.card').length + 1,
+          "name": fields[1].value,
+          "image": fields[3].value,
+          "likes": 0
+        }
+
+        createToy(toy);
+
         fields[0].parentElement.reset()
+
+        let configObj = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(toy)
+        }
+
+        fetch(`http://localhost:3000/toys`, configObj)
+          .then(response => response.json())
+          .then(success => console.log("successfully added new toy"))
+          .catch(error => console.log(error.message))
+
     } else if(button.matches(".like-btn")) {
         let likesP = parseInt(button.previousSibling.innerText, 10)
         likesP = likesP + 1
@@ -38,28 +60,30 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         }
 
-        // fetch(`http://localhost:3000/toys/${}`, configObj)
-        //   .then(response => response.json())
-        //   .then(success => console.log("successfully updated likes"))
-        //   .catch(error => console.log(error.message))
+        let id = button.parentElement.id
+        fetch(`http://localhost:3000/toys/${id}`, configObj)
+          .then(response => response.json())
+          .then(success => console.log("successfully updated likes"))
+          .catch(error => console.log(error.message))
     }
     
   });
 
 
-  function createToy(name, imageURL, like=0) {
+  function createToy(toy) {
     const collection = document.getElementById('toy-collection');
       const div = document.createElement('div');
       div.className = "card";
+      div.id = toy.id;
 
       const h2 = document.createElement('h2');
-      h2.innerText = name;
+      h2.innerText = toy.name;
 
       const img = document.createElement('img');
-      img.src = imageURL;
+      img.src = toy.image;
 
       const p = document.createElement('p');
-      p.innerText = like;
+      p.innerText = toy.likes;
 
       const likeBtn = document.createElement('button');
       likeBtn.className = "like-btn"; 
@@ -80,7 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(toyCollection);
 
         for(const toy of toyCollection) {
-          createToy(toy.name, toy.image, toy.likes);
+          createToy(toy);
+          
         }
 
       })
