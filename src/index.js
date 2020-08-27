@@ -3,15 +3,26 @@ let addToy = false;
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
-  addBtn.addEventListener("click", () => {
+  document.addEventListener("click", (e) => {
     // hide & seek with the form
-    addToy = !addToy;
-    if (addToy) {
-      toyFormContainer.style.display = "block";
-    } else {
-      toyFormContainer.style.display = "none";
+    const button = e.target
+    if (button.matches("#new-toy-btn")) {
+      addToy = !addToy;
+      if (addToy) {
+        toyFormContainer.style.display = "block";
+      } else {
+        toyFormContainer.style.display = "none";
+      }
+    } else if(button.matches(".submit")){
+      
+
     }
+
+
+
+    
   });
+  
 
   const getToys = () => {
     fetch('http://localhost:3000/toys')
@@ -37,14 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const likeBtn = document.createElement('button');
           likeBtn.className = "like-btn"; 
-
+          
           div.append(h2);
           div.append(img);
           div.append(p);
           div.append(likeBtn);
           collection.append(div);
-
-
         }
 
       })
