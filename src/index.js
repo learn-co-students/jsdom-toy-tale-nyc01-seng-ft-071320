@@ -23,14 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let toyCollection = document.querySelector('#toy-collection')
   function makeToyCard(toy) {
     let toyCard = document.createElement('div')
-    toyCard.className = "toy-card"
+    toyCard.className = "card"
     toyCard.dataset.num = toy.id
-    toyCard.innerHTML = `
-      <h2>${toy.name}</h2>
-      <img src="${toy.image} class="toy-avatar">
-      <p>${toy.likes}</p>
-      <button class="like-btn">❤️</button>
-    `
+    let innerStuff = `
+    <h2>${toy.name}</h2>
+    <img src="${toy.image}" class="toy-avatar">
+    <p>${toy.likes}</p>
+    <button class="like-btn">❤️</button>
+  `
+    toyCard.innerHTML = innerStuff
     toyCollection.append(toyCard)
   }
 
