@@ -86,3 +86,20 @@ body: JSON.stringify({
   "likes": <new number>
 })
 ```
+
+
+TODO:
+
+√1) Make DOMContentLoaded eventListener
+
+√2) fetch(http://localhost:3000/toys)
+√3) Create element div.card
+√4) write div.card.innerHTML
+    - h2 (toy.name)
+    - img.toy-avatar (toy.img_url)
+    - p (toy.likes)
+    - button.like-btn
+
+√5) Create function that loops through JSON reponse to place all card info inside div.card
+
+6) 
