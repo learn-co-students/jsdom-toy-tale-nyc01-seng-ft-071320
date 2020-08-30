@@ -75,6 +75,11 @@ When a user clicks on a toy's like button, two things should happen:
   * Headers and body are provided below (If your request isn't working, make sure your header and keys match the documentation.)
   
 ```
+
+
+
+
+
 PATCH http://localhost:3000/toys/:id
 headers: 
 {
