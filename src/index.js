@@ -1,146 +1,123 @@
 let addToy = false;
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  showNewToyForm()
+  getToys()
+  submitNewToy()
+  updateToyLikes()
+
+
+})
+
+const cardContainer = document.getElementById('toy-collection')
+
+
+function showNewToyForm(){
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
-  const cardContainer = document.getElementById("toy-collection")
-
-// Loads all the toys in the database
-
-
-  let getToys = () => {
-    fetch("http://localhost:3000/toys")
-      .then(resp => resp.json())
-      .then(toyData => renderToys(toyData))
-  }
-
-  const renderToys = toys => {
-    for(const toyObj of toys){
-      dataOrg(toyObj)
-    }
-  }
-
-  let dataOrg = (toyObj) => {
-    const toyDiv = document.createElement("div")
-    toyDiv.classList.add("card")
-
-    toyDiv.innerHTML = `
-      <h2>${toyObj.name}</h2>
-      <img src=${toyObj.image} class="toy-avatar" />
-      <p>${toyObj.likes} Likes</p>
-      <button data-id="${toyObj.id}" class="like-btn">Like <3</button>
-    `
-    cardContainer.append(toyDiv)
-  }
-
-  // Creates a new toy, updates in database and posts to webpage
-  const fetchPost = (name, imgUrl) => {
-    const newToyObj = fetch("http://localhost:3000/toys", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-
-      body: JSON.stringify
-      ({
-          "name": name,
-          "image": imgUrl,
-          "likes": 0
-      })
-    })
-    console.log(newToyObj)
-  }
-
-  // Form to submit new toy info
-
-  toyFormContainer.addEventListener("submit", e => {
-    if (e.target.matches('.add-toy-form')){
-      e.preventDefault()
-
-      const input = e.target
-
-      const name = input.name.value
-      const imgUrl = input.image.value
-      fetchPost(name, imgUrl)
-      getToys()
-    }  
-  });
-
-// EventListener to hide and display new toy form
   addBtn.addEventListener("click", () => {
-    // hide & seek with the form
     addToy = !addToy;
     if (addToy) {
       toyFormContainer.style.display = "block";
     } else {
       toyFormContainer.style.display = "none";
     }
-  });
+  })
+}
 
-  // Function to update toy likes
-  let likeListener = () => {
-    document.addEventListener("click", function(e){
-      if (e.target.matches(".like-btn")){
-        let button = e.target
-        let id = button.dataset.id
-        let pTag = button.previousElementSibling
-        let toyLikes = parseInt(pTag.innerText.split(" ")[0])
-        let newToyLikes = toyLikes + 1
-        patchPost(newToyLikes, id, pTag)
-      }
-    })
+function getToys(){
+
+  fetch('http://localhost:3000/toys')
+  .then(function(response){return response.json()})
+  .then(function(toys){renderToys(toys)})
+}
+
+function renderToys(toyObjs){
+
+  for (let toyObj of toyObjs){
+    addToyToDOM(toyObj)
   }
+}
 
 
-  const patchPost = (likes, id, pTag) => {
-    const newToyObj = fetch("http://localhost:3000/toys/" + id, {
-      method: 'PATCH',
-      headers: {
+function addToyToDOM(toy){
+
+  let toyItem = document.createElement('div')
+  toyItem.classList.add('card')
+  toyItem.innerHTML =`
+    <h2>${toy.name}</h2>
+    <img src=${toy.image} class="toy-avatar" />
+    <p>${toy.likes} Likes</p>
+    <button class="like-btn">Like <3</button>`
+  toyItem.dataset.id = toy.id 
+  cardContainer.append(toyItem)
+}
+
+function postAndRenderToy(name,imageURL){
+  fetch('http://localhost:3000/toys',{
+      method: "POST",
+      headers:{
         "Content-Type": "application/json",
-        "accept": "application/json"
+        "Accept": "application/json"
       },
-
-      body: JSON.stringify
-      ({
-          likes: likes
+      body: JSON.stringify({
+        "name": name,
+        "image": imageURL,
+        "likes": 0
       })
     })
-    .then(response => response.json())
-    .then(toy => {
-      const toyButton = document.querySelector(`[data-id="${toy.id}"]`)
-      pTag.textContent = `${toy.likes} Likes`
+  .then(function(response){return response.json()})
+  .then(getToys())
+  .catch(console.log("Things are not rendering right"))
 
-    })
-    console.log(newToyObj)
-  }
+}
 
-  // fetch(baseUrl + id, options)
-  // .then(response => response.json())
-  // .then(toy => {
-  //   const button = document.querySelector(`[data-id="${toy.id}"]`)
-  //   console.log(button)
-  //   const pTag = button.previousElementSibling
-  //   pTag.textContent = `${toy.likes} Likes`
-
-
-
-// Patch to update likes
-
-  // PATCH http://localhost:3000/toys/:id
-  // headers: 
-  // {
-  //   "Content-Type": "application/json",
-  //   Accept: "application/json"
-  // }
-   
-  // body: JSON.stringify({
-  //   "likes": <new number>
-  // })
-
-
-  // Invoke methods and functions and run program sequence
+function submitNewToy (){
+  submitButton = document.querySelector(".add-toy-form").lastElementChild
   
-  likeListener()
-  getToys()  
-});
+  submitButton.addEventListener('click', function(e){
+    e.preventDefault()
+    let submitForm = e.target.parentNode
+    let newToyName = submitForm.name.value
+    let newToyImage = submitForm.image.value
+    postAndRenderToy(newToyName, newToyImage)
+
+  })
+}
+
+function likeToy(likes, newLikes, id){
+  fetch('http://localhost:3000/toys/'+ id,{
+      method: "PATCH",
+      headers:{
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        likes: newLikes
+      })
+    })
+  .then(function(response){return response.json()})
+  .then(function(updatedToy){
+    let updateLikes = document.querySelector(`[data-id="${updatedToy.id}"]`);
+    likes.innerText = `${newLikes} Likes`
+  })
+  .catch(console.log("Things are not rendering right"))
+
+}
+
+function updateToyLikes (){
+  likeButtonsField = document.querySelector("#toy-collection")
+  
+  likeButtonsField.addEventListener('click', function(e){
+    e.preventDefault()
+    if (e.target.matches(".like-btn")){
+      let likes = e.target.previousElementSibling
+      let likeValue = likes.innerText.split(" ")[0]
+      let newLikes = parseInt(likeValue,10) + 1
+      toyID = likes.parentNode.dataset.id
+      likeToy(likes, newLikes, toyID)
+    }
+  })
+}
+
