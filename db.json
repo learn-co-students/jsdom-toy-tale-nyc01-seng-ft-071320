@@ -22,7 +22,7 @@
       "id": 4,
       "name": "Slinky Dog",
       "image": "https://www.freeiconspng.com/uploads/slinky-png-transparent-1.png",
-      "likes": 4
+      "likes": 10
     },
     {
       "id": 5,
@@ -46,7 +46,25 @@
       "id": 8,
       "name": "Little Green Men",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
-      "likes": -2
+      "likes": 5
+    },
+    {
+      "name": "Miso",
+      "image": "https://www.dogmal.com/wp-content/uploads/2019/02/Long-haired-chihuahua.jpg",
+      "likes": 9,
+      "id": 9
+    },
+    {
+      "name": "Sophie",
+      "image": "https://www.101dogbreeds.com/wp-content/uploads/2015/01/Norwegian-Elkhound-Husky-Mix.jpg",
+      "likes": 0,
+      "id": 10
+    },
+    {
+      "name": "Kiwi",
+      "image": "https://animals.net/wp-content/uploads/2018/06/Chihuahua-9_long-haired-650x425.jpg",
+      "likes": 0,
+      "id": 11
     }
   ]
 }
