@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(renderToy);
         });
     };
-    const clickHandler = (e) => {
+    const clickHandler = () => {
         let addToy = false;
         const addBtn = document.querySelector("#new-toy-btn");
 
