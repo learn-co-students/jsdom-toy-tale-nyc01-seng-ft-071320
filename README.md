@@ -15,7 +15,7 @@ This will create a server storing all of our lost toy data with restful routes
 at `http://localhost:3000/toys`. You can also check out
 `http://localhost:3000/toys/:id`
 
-<!-- ## Fetch Andy's Toys
+## Fetch Andy's Toys
 
 On the `index.html` page, there is a `div` with the `id` "toy-collection."
 
@@ -43,7 +43,7 @@ After all of that, the toy card should resemble:
   </div>
 ``` -->
 
-<!-- ## Add a New Toy
+## Add a New Toy
 
 * When a user submits the toy form, a `POST` request is sent to `http://localhost:3000/toys` and the new toy is added to Andy's Toy Collection.
 * The toy should conditionally render to the page.
@@ -65,7 +65,7 @@ body: JSON.stringify({
 ```
 * For examples, refer to the [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Supplying_request_options). -->
 
-## Increase Toy's Likes
+<!-- ## Increase Toy's Likes
 
 When a user clicks on a toy's like button, two things should happen:
 
