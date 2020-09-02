@@ -41,7 +41,7 @@ After all of that, the toy card should resemble:
     <p>4 Likes </p>
     <button class="like-btn">Like <3</button>
   </div>
-```
+``` -->
 
 ## Add a New Toy
 
@@ -63,10 +63,9 @@ body: JSON.stringify({
   "likes": 0
 })
 ```
+* For examples, refer to the [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Supplying_request_options). -->
 
-* For examples, refer to the [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Supplying_request_options).
-
-## Increase Toy's Likes
+<!-- ## Increase Toy's Likes
 
 When a user clicks on a toy's like button, two things should happen:
 
