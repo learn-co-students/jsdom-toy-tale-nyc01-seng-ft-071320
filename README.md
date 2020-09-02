@@ -17,6 +17,10 @@ at `http://localhost:3000/toys`. You can also check out
 
 ## Fetch Andy's Toys
 
+<!-- do fetch() & in last line make a <div class="card">  & add to toy collection node</div>-->
+
+
+
 On the `index.html` page, there is a `div` with the `id` "toy-collection."
 
 When the page loads, make a 'GET' request to fetch all the toy objects. With the
